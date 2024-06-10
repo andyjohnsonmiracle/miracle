@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator</title>
+    <style>
+        body {
+            background-color: rgb(255, 0, 200);
+        }
+    </style>
+    <script>
+        function calculateCompoundInterest() {
+            // Get the values from the input fields
+            let principal = document.getElementById("principal").value;
+            let rate = document.getElementById("rate").value;
+            let time = document.getElementById("time").value;
+            let frequency = document.getElementById("frequency").value;
+
+            // Convert input values to numbers
+            principal = parseFloat(principal);
+            rate = parseFloat(rate) / 100;
+            time = parseFloat(time);
+            frequency = parseInt(frequency);
+
+            // Validate input values
+            if (isNaN(principal) || isNaN(rate) || isNaN(time) || isNaN(frequency)) {
+                alert("Please enter valid numbers for principal, rate, time, and frequency.");
+                return;
+            }
+
+            // Calculate compound interest
+            let compoundInterest = principal * Math.pow((1 + rate / frequency), frequency * time) - principal;
+
+            // Display the result
+            document.getElementById("result").innerText = "Compound Interest: " + compoundInterest.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Compound Interest Calculator</h1>
+    <form onsubmit="event.preventDefault(); calculateCompoundInterest();">
+        <label for="principal">Principal Amount:</label>
+        <input type="number" id="principal" name="principal" required><br><br>
+        
+        <label for="rate">Annual Interest Rate (%):</label>
+        <input type="number" id="rate" name="rate" required><br><br>
+        
+        <label for="time">Time (years):</label>
+        <input type="number" id="time" name="time" required><br><br>
+
+        <label for="frequency">Compounding Frequency (times per year):</label>
+        <input type="number" id="frequency" name="frequency" required><br><br>
+        
+        <input type="submit" value="Calculate">
+    </form>
+
+    <p id="result"></p>
+</body>
+</html>

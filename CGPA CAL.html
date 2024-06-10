@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <script>
+        function calculateCGPA() {
+            // Get the values from the input fields
+            let grades = document.getElementsByClassName("grade");
+            let credits = document.getElementsByClassName("credit");
+            
+            // Initialize sum of products of grades and credits, and total credits
+            let totalGradePoints = 0;
+            let totalCredits = 0;
+
+            // Loop through each subject and calculate the total grade points and credits
+            for (let i = 0; i < grades.length; i++) {
+                let grade = parseFloat(grades[i].value);
+                let credit = parseFloat(credits[i].value);
+
+                // Validate input values
+                if (isNaN(grade) || isNaN(credit)) {
+                    alert("Please enter valid numbers for all grades and credits.");
+                    return;
+                }
+
+                totalGradePoints += grade * credit;
+                totalCredits += credit;
+            }
+
+            // Calculate CGPA
+            let cgpa = totalGradePoints / totalCredits;
+
+            // Display the result
+            document.getElementById("result").innerText = "CGPA: " + cgpa.toFixed(2);
+        }
+
+        function addSubject() {
+            // Get the container element where the subjects will be added
+            let container = document.getElementById("subjects");
+
+            // Create a new div for the subject
+            let subjectDiv = document.createElement("div");
+
+            // Create the grade input field
+            let gradeInput = document.createElement("input");
+            gradeInput.type = "number";
+            gradeInput.className = "grade";
+            gradeInput.placeholder = "Grade";
+
+            // Create the credit input field
+            let creditInput = document.createElement("input");
+            creditInput.type = "number";
+            creditInput.className = "credit";
+            creditInput.placeholder = "Credit";
+
+            // Append the inputs to the subject div
+            subjectDiv.appendChild(gradeInput);
+            subjectDiv.appendChild(creditInput);
+
+            // Append the subject div to the container
+            container.appendChild(subjectDiv);
+        }
+    </script>
+    <style>
+        body {
+            background-color: rgb(255, 0, 212);
+        }
+    </style>
+</head>
+<body>
+    <h1>CGPA Calculator</h1>
+    <form onsubmit="event.preventDefault(); calculateCGPA();">
+        <div id="subjects">
+            <div>
+                <input type="number" class="grade" placeholder="Grade" required>
+                <input type="number" class="credit" placeholder="Credit" required>
+            </div>
+        </div>
+        <br>
+        <button type="button" onclick="addSubject()">Add Subject</button>
+        <br><br>
+        <input type="submit" value="Calculate">
+    </form>
+
+    <p id="result"></p>
+</body>
+</html>
